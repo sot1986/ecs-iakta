@@ -1,0 +1,29 @@
+version: 0.2
+
+env:
+  variables:
+    REPO_URL: "208722357485.dkr.ecr.eu-south-1.amazonaws.com"
+    IMAGE: "iakta/nuxtweb"
+    IMAGE_TAG: "latest"
+        
+phases:
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - echo "Logging into AWS ECR"
+      - aws ecr get-login-password --region eu-south-1 | docker login --username AWS --password-stdin ${REPO_URL}
+    
+  build:
+    on-failure: ABORT
+    commands:
+      - echo "Building Docker image"
+      - docker build -f ./Dockerfile.web -t ${IMAGE} .
+      - echo "Tagging Docker image"
+      - docker tag ${IMAGE} ${REPO_URL}/${IMAGE}:${IMAGE_TAG}
+    
+  post_build:
+    on-failure: ABORT
+    commands:
+      - echo "Pushing Docker image to ECR"
+      - docker push ${REPO_URL}/${IMAGE}:${IMAGE_TAG}
+      - echo "Docker image pushed successfully"
