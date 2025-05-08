@@ -48,7 +48,7 @@ function createHero() {
     <div class="px-4 sm:px-6 lg:px-8">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
-        <h1 class="text-base font-semibold text-gray-900">Heroes</h1>
+        <h1 class="text-base font-semibold text-gray-900">Heroes v2</h1>
         <p class="mt-2 text-sm text-gray-700">A list of all iakta heroes.</p>
       </div>
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
